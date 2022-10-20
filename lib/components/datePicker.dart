@@ -3,20 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
 class MyDatePicker extends StatefulWidget {
-  const MyDatePicker({Key? key}) : super(key: key);
+  const MyDatePicker({Key? key, required this.datePickerCallback}) : super(key: key);
+
+  final Function(dynamic value) datePickerCallback;
 
   @override
-  State<MyDatePicker> createState() => _MyDatePickerState();
+  State<MyDatePicker> createState() => _MyDatePickerState(
+      datePickerCallback
+  );
 }
 
 class _MyDatePickerState extends State<MyDatePicker> {
   late DateTime data = DateTime(2022, 10, 13);
+  final Function(dynamic value) datePickerCallback;
+
+  _MyDatePickerState(this.datePickerCallback);
 
   void updateDateState(DateTime? newDate){
     if (newDate != null) {
       setState(() {
         data = newDate;
       });
+      this.datePickerCallback(newDate);
     }
   }
 
