@@ -38,95 +38,116 @@ class _MyFormState extends State<MyForm> {
         body: Form(
           key: _formKey,
           child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  TextFormField(
-                    decoration: const InputDecoration(
-                        filled: true,
-                        labelText: 'Nome',
-                        hintText: 'Escreva o seu nome'),
-                    onChanged: (value) {
-                      setState(() {
-                        nome = value;
-                      });
-                    },
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      filled: true,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: const BorderSide(
-                              color: Colors.blue,
-                              width: 5.0,
-                              style: BorderStyle.solid)),
-                      hintText: 'Diz-nos quem és!',
-                      labelText: 'Resumo pessoal e profissional',
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        resumo = value;
-                      });
-                    },
-                    maxLines: 10,
-                  ),
-                  MyDatePicker(
-                      data: data,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    TextFormField(
+                      decoration: const InputDecoration(
+                          filled: true,
+                          labelText: 'Nome',
+                          hintText: 'Escreva o seu nome'),
                       onChanged: (value) {
                         setState(() {
-                          data = value;
+                          nome = value;
                         });
-                      }),
-                  MySlider(
-                      value: expectativa,
-                      onChanged: (value) {
-                        setState(() {
-                          expectativa = value;
-                        });
-                      }),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      filled: true,
-                      hintText: 'Insira o seu e-mail',
-                      labelText: 'E-mail',
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        email = value;
-                      });
-                    },
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      filled: true,
-                      hintText: 'Link para o Linkedin',
-                      labelText: 'LinkedIn',
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        linkedin = value;
-                      });
-                    },
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        // Validate returns true if the form is valid, otherwise false.
-                        if (_formKey.currentState!.validate()) {
-                          widget.callback({
-                            nome,
-                            resumo,
-                            intl.DateFormat("dd/MM/yyyy").format(data),
-                            expectativa.toString(),
-                            email,
-                            linkedin
-                          });
-                        }
                       },
-                      child: const Text('Submeter'))
-                ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        filled: true,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: const BorderSide(
+                                color: Colors.blue,
+                                width: 5.0,
+                                style: BorderStyle.solid)),
+                        hintText: 'Diz-nos quem és!',
+                        labelText: 'Resumo pessoal e profissional',
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          resumo = value;
+                        });
+                      },
+                      maxLines: 10,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    MyDatePicker(
+                        data: data,
+                        onChanged: (value) {
+                          setState(() {
+                            data = value;
+                          });
+                        }),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    MySlider(
+                        value: expectativa,
+                        onChanged: (value) {
+                          setState(() {
+                            expectativa = value;
+                          });
+                        }),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        filled: true,
+                        hintText: 'Insira o seu e-mail',
+                        labelText: 'E-mail',
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          email = value;
+                        });
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        filled: true,
+                        hintText: 'Link para o Linkedin',
+                        labelText: 'LinkedIn',
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          linkedin = value;
+                        });
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          // Validate returns true if the form is valid, otherwise false.
+                          if (_formKey.currentState!.validate()) {
+                            widget.callback({
+                              nome,
+                              resumo,
+                              intl.DateFormat("dd/MM/yyyy").format(data),
+                              expectativa.toString(),
+                              email,
+                              linkedin
+                            });
+                          }
+                        },
+                        child: const Text('Submeter'))
+                  ],
+                ),
               ),
             ),
           ),

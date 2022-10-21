@@ -15,7 +15,14 @@ class ResultPage extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
             child: Column(
-              children: candidatura.map((e) => Text(e)).toList(),
+              children: candidatura
+                  .map(
+                    (e) => Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text(e),
+                    ),
+                  )
+                  .toList(),
             )),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
