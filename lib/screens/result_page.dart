@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart' as intl;
 
 class ResultPage extends StatelessWidget {
   final List<dynamic> candidatura;
@@ -16,12 +15,7 @@ class ResultPage extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
             child: Column(
-              children: [
-                Text("Nome: ${candidatura.elementAt(0)}"),
-                Text("Resumo: ${candidatura.elementAt(1)}"),
-                Text(
-                    "Data de nascimento: ${intl.DateFormat("dd/MM/yyyy").format(candidatura.elementAt(2))}"),
-              ],
+              children: candidatura.map((e) => Text(e)).toList(),
             )),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:form_aula/screens/result_page.dart';
 
-import 'form.dart';
+import 'screens/form.dart';
 
 void main() {
   debugPaintSizeEnabled = false;
