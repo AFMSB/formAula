@@ -1,53 +1,53 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
 class MyDatePicker extends StatefulWidget {
-  const MyDatePicker({Key? key, required this.datePickerCallback}) : super(key: key);
 
-  final Function(dynamic value) datePickerCallback;
+  final DateTime data;
+  final ValueChanged onChanged;
+
+  const MyDatePicker({required this.data, required this.onChanged, super.key});
 
   @override
-  State<MyDatePicker> createState() => _MyDatePickerState(
-      datePickerCallback
-  );
+  State<MyDatePicker> createState() => _MyDatePickerState();
 }
 
 class _MyDatePickerState extends State<MyDatePicker> {
-  late DateTime data = DateTime(2022, 10, 13);
-  final Function(dynamic value) datePickerCallback;
-
-  _MyDatePickerState(this.datePickerCallback);
-
-  void updateDateState(DateTime? newDate){
-    if (newDate != null) {
-      setState(() {
-        data = newDate;
-      });
-      this.datePickerCallback(newDate);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text('Data de Nascimento'),
-            Text(intl.DateFormat("dd/MM/yyyy").format(data)),
+            Text(
+                'Data de Nascimento',
+                style: Theme.of(context).textTheme.bodyLarge
+            ),
+            Text(
+                intl.DateFormat("dd/MM/yyyy").format(widget.data),
+                style: Theme.of(context).textTheme.titleMedium
+            ),
           ],
         ),
         TextButton(
+            child: const Text('Editar'),
             onPressed: () async {
               var newDate = await showDatePicker(
                   context: context,
-                  initialDate: data,
-                  firstDate: DateTime(2000),
-                  lastDate: DateTime(2023));
-              this.updateDateState(newDate);
+                  initialDate: widget.data,
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime(2100));
+              if (newDate == null) {
+                return;
+              }
+              widget.onChanged(newDate);
             },
-            child: Text('Editar')),
+        )
       ],
     );
   }
