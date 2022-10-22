@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:form_aula/screens/result_page.dart';
 
 import 'screens/form.dart';
 
@@ -17,9 +16,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-  List<dynamic> candidatura = [];
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,25 +24,13 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       home: Navigator(
-        pages: [
+        pages: const [
           MaterialPage(
-              key: const ValueKey('Form'),
-              child: MyForm(
-                  title: 'Candidatura Espontânea', callback: (value) {
-                    setState(() {
-                      candidatura = List<dynamic>.from(value);
-                    });
-              },
-              )
-          ),
-          if(candidatura.isNotEmpty)
-            MaterialPage(
-              key: const ValueKey("Resultados"),
-              child: ResultPage(candidatura: candidatura)
-            )
+              key: ValueKey('Form'),
+              child: MyForm(title: 'Candidatura Espontânea')),
         ],
-        onPopPage: (route, result){
-          if(!route.didPop(result)){
+        onPopPage: (route, result) {
+          if (!route.didPop(result)) {
             return false;
           }
           return true;
@@ -55,5 +39,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-

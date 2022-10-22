@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:form_aula/components/slider.dart';
+import 'package:form_aula/screens/result_page.dart';
 import 'package:intl/intl.dart' as intl;
 
 import '../components/datePicker.dart';
 
 class MyForm extends StatefulWidget {
   final String title;
-  final ValueChanged callback;
 
-  const MyForm({required this.title, required this.callback, super.key});
+  const MyForm({required this.title, super.key});
 
   @override
   State<MyForm> createState() => _MyFormState();
@@ -135,14 +135,18 @@ class _MyFormState extends State<MyForm> {
                         onPressed: () {
                           // Validate returns true if the form is valid, otherwise false.
                           if (_formKey.currentState!.validate()) {
-                            widget.callback({
-                              nome,
-                              resumo,
-                              intl.DateFormat("dd/MM/yyyy").format(data),
-                              expectativa.toString(),
-                              email,
-                              linkedin
-                            });
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => ResultPage(candidatura: [
+                                  nome,
+                                  resumo,
+                                  intl.DateFormat("dd/MM/yyyy").format(data),
+                                  expectativa.toString(),
+                                  email,
+                                  linkedin
+                                ]),
+                              ),
+                            );
                           }
                         },
                         child: const Text('Submeter'))

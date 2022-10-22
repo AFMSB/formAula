@@ -13,18 +13,29 @@ class ResultPage extends StatelessWidget {
       ),
       body: Center(
         child: Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
-            child: Column(
-              children: candidatura
-                  .map(
-                    (e) => Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Text(e),
-                    ),
-                  )
-                  .toList(),
-            )),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Column(
+                  children: candidatura
+                      .map(
+                        (e) => Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Text(e),
+                        ),
+                      )
+                      .toList(),
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Back'))
+              ]),
+        ),
+      ),
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
