@@ -50,6 +50,12 @@ class _MyFormState extends State<MyForm> {
                           filled: true,
                           labelText: 'Nome',
                           hintText: 'Escreva o seu nome'),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Escreva o seu nome';
+                        }
+                        return null;
+                      },
                       onChanged: (value) {
                         setState(() {
                           nome = value;
@@ -71,6 +77,12 @@ class _MyFormState extends State<MyForm> {
                         hintText: 'Diz-nos quem és!',
                         labelText: 'Resumo pessoal e profissional',
                       ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Escreva o seu resumo pessoal e profissional';
+                        }
+                        return null;
+                      },
                       onChanged: (value) {
                         setState(() {
                           resumo = value;
@@ -107,6 +119,17 @@ class _MyFormState extends State<MyForm> {
                         hintText: 'Insira o seu e-mail',
                         labelText: 'E-mail',
                       ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Escreva o seu email';
+                        }
+                        final emailRegExp =
+                            RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+                        if (!emailRegExp.hasMatch(value)) {
+                          return 'Email inválido';
+                        }
+                        return null;
+                      },
                       onChanged: (value) {
                         setState(() {
                           email = value;
@@ -122,6 +145,17 @@ class _MyFormState extends State<MyForm> {
                         hintText: 'Link para o Linkedin',
                         labelText: 'LinkedIn',
                       ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Escreva o seu Linkedin';
+                        }
+                        final emailRegExp = RegExp(
+                            r"((https?:\/\/)?((www|\w\w)\.)?linkedin\.com\/)((([\w]{2,3})?)|([^\/]+\/(([\w|\d-&#?=])+\/?){1,}))$");
+                        if (!emailRegExp.hasMatch(value)) {
+                          return 'Linkedin inválido';
+                        }
+                        return null;
+                      },
                       onChanged: (value) {
                         setState(() {
                           linkedin = value;
