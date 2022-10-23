@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ResultPage extends StatelessWidget {
+class JobApplication extends StatelessWidget {
   final List<dynamic> candidatura;
 
-  const ResultPage({Key? key, required this.candidatura}) : super(key: key);
+  const JobApplication({Key? key, required this.candidatura}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

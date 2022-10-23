@@ -119,7 +119,7 @@ class _MyFormState extends State<MyForm> {
                         hintText: 'Insira o seu e-mail',
                         labelText: 'E-mail',
                       ),
-                      validator: (value) {
+                      /*validator: (value) {
                         if (value!.isEmpty) {
                           return 'Escreva o seu email';
                         }
@@ -129,7 +129,7 @@ class _MyFormState extends State<MyForm> {
                           return 'Email inválido';
                         }
                         return null;
-                      },
+                      },*/
                       onChanged: (value) {
                         setState(() {
                           email = value;
@@ -145,7 +145,7 @@ class _MyFormState extends State<MyForm> {
                         hintText: 'Link para o Linkedin',
                         labelText: 'LinkedIn',
                       ),
-                      validator: (value) {
+                      /*validator: (value) {
                         if (value!.isEmpty) {
                           return 'Escreva o seu Linkedin';
                         }
@@ -155,7 +155,7 @@ class _MyFormState extends State<MyForm> {
                           return 'Linkedin inválido';
                         }
                         return null;
-                      },
+                      },*/
                       onChanged: (value) {
                         setState(() {
                           linkedin = value;
@@ -171,7 +171,8 @@ class _MyFormState extends State<MyForm> {
                           if (_formKey.currentState!.validate()) {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => ResultPage(candidatura: [
+                                builder: (context) =>
+                                    JobApplication(candidatura: [
                                   nome,
                                   resumo,
                                   intl.DateFormat("dd/MM/yyyy").format(data),
