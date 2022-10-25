@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart' as intl;
+import 'package:intl/intl.dart';
 
 class MySlider extends StatelessWidget {
   final double value;
@@ -24,8 +24,7 @@ class MySlider extends StatelessWidget {
           ],
         ),
         Text(
-          intl.NumberFormat.currency(symbol: "€", decimalDigits: 0)
-              .format(value),
+          NumberFormat.currency(symbol: "€", decimalDigits: 0).format(value),
           style: Theme.of(context).textTheme.titleMedium,
         ),
         Slider(

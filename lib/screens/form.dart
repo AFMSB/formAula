@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:form_aula/components/slider.dart';
-import 'package:form_aula/screens/result_page.dart';
-import 'package:intl/intl.dart' as intl;
+import 'package:form_aula/models/jobApplication.dart';
+import 'package:provider/provider.dart';
 
 import '../components/datePicker.dart';
+import '../models/myApplications.dart';
 
 class MyForm extends StatefulWidget {
   final String title;
@@ -28,6 +29,8 @@ class _MyFormState extends State<MyForm> {
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
+
+  bool validatorsOn = false;
 
   @override
   Widget build(BuildContext context) {
@@ -119,17 +122,18 @@ class _MyFormState extends State<MyForm> {
                         hintText: 'Insira o seu e-mail',
                         labelText: 'E-mail',
                       ),
-                      /*validator: (value) {
+                      validator: (value) {
                         if (value!.isEmpty) {
                           return 'Escreva o seu email';
                         }
+                        if (!validatorsOn) return null;
                         final emailRegExp =
                             RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
                         if (!emailRegExp.hasMatch(value)) {
                           return 'Email inválido';
                         }
                         return null;
-                      },*/
+                      },
                       onChanged: (value) {
                         setState(() {
                           email = value;
@@ -145,17 +149,18 @@ class _MyFormState extends State<MyForm> {
                         hintText: 'Link para o Linkedin',
                         labelText: 'LinkedIn',
                       ),
-                      /*validator: (value) {
+                      validator: (value) {
                         if (value!.isEmpty) {
                           return 'Escreva o seu Linkedin';
                         }
+                        if (!validatorsOn) return null;
                         final emailRegExp = RegExp(
                             r"((https?:\/\/)?((www|\w\w)\.)?linkedin\.com\/)((([\w]{2,3})?)|([^\/]+\/(([\w|\d-&#?=])+\/?){1,}))$");
                         if (!emailRegExp.hasMatch(value)) {
                           return 'Linkedin inválido';
                         }
                         return null;
-                      },*/
+                      },
                       onChanged: (value) {
                         setState(() {
                           linkedin = value;
@@ -166,25 +171,37 @@ class _MyFormState extends State<MyForm> {
                       height: 20,
                     ),
                     ElevatedButton(
-                        onPressed: () {
-                          // Validate returns true if the form is valid, otherwise false.
-                          if (_formKey.currentState!.validate()) {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    JobApplication(candidatura: [
-                                  nome,
-                                  resumo,
-                                  intl.DateFormat("dd/MM/yyyy").format(data),
-                                  expectativa.toString(),
-                                  email,
-                                  linkedin
-                                ]),
-                              ),
-                            );
-                          }
-                        },
-                        child: const Text('Submeter'))
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          Provider.of<MyJobApplicationsModel>(
+                            context,
+                            listen: false,
+                          ).add(
+                            JobApplicationModel(widget.title, nome, resumo,
+                                data, expectativa, email, linkedin),
+                          );
+                          // Show confirmation dialog
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Candidatura submetida'),
+                              content: Text(
+                                  'A sua candidatura foi submetida com sucesso à ${widget.title}.'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop('OK');
+                                    Navigator.of(context).pop('Return');
+                                  },
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      },
+                      child: const Text('Submeter'),
+                    ),
                   ],
                 ),
               ),

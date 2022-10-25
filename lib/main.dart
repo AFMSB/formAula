@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:form_aula/screens/companies.dart';
-import 'package:form_aula/screens/myApplications.dart';
+import 'package:form_aula/screens/myJobApplications.dart';
+import 'package:provider/provider.dart';
+
+import 'models/myApplications.dart';
 
 void main() {
   debugPaintSizeEnabled = false;
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => MyJobApplicationsModel(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -20,7 +26,7 @@ class _MyAppState extends State<MyApp> {
 
   final List<List<dynamic>> _tabs = [
     ["Companies", CompaniesList()],
-    ["Job Applications", MyJobApplications()],
+    ["My Job Applications", const MyJobApplications()],
   ];
 
   @override

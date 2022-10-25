@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart' as intl;
+import 'package:intl/intl.dart';
 
 class MyDatePicker extends StatelessWidget {
   final DateTime data;
@@ -19,7 +19,7 @@ class MyDatePicker extends StatelessWidget {
           children: [
             Text('Data de Nascimento',
                 style: Theme.of(context).textTheme.bodyLarge),
-            Text(intl.DateFormat("dd/MM/yyyy").format(data),
+            Text(DateFormat("dd/MM/yyyy").format(data),
                 style: Theme.of(context).textTheme.titleMedium),
           ],
         ),
