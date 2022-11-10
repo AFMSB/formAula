@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:form_aula/components/slider.dart';
 import 'package:form_aula/models/jobApplication.dart';
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../components/datePicker.dart';
@@ -31,6 +35,30 @@ class _MyFormState extends State<MyForm> {
   final _formKey = GlobalKey<FormState>();
 
   bool validatorsOn = false;
+
+  Future<void> submitApplication(JobApplicationModel applicationModel) async {
+    final response = await http.post(
+        Uri.parse(
+            "https://63541afbe64783fa827f6418.mockapi.io/pjam/jobapplications"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          "company": widget.title,
+          'createdAt': DateFormat("dd/MM/yyyy").format(DateTime.now()),
+          'name': applicationModel.name,
+          'resume': applicationModel.resume,
+          'birthdate':
+              DateFormat("dd/MM/yyyy").format(applicationModel.birthdate),
+          'salary': applicationModel.salary.toString(),
+          'email': applicationModel.email,
+          'linkedin': applicationModel.linkedin
+        }));
+
+    if (response.statusCode != 201) {
+      throw Exception("Error storing the application");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -173,13 +201,14 @@ class _MyFormState extends State<MyForm> {
                     ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
+                          JobApplicationModel newApplication =
+                              JobApplicationModel(widget.title, nome, resumo,
+                                  data, expectativa, email, linkedin);
+                          submitApplication(newApplication);
                           Provider.of<MyJobApplicationsModel>(
                             context,
                             listen: false,
-                          ).add(
-                            JobApplicationModel(widget.title, nome, resumo,
-                                data, expectativa, email, linkedin),
-                          );
+                          ).add(newApplication);
                           // Show confirmation dialog
                           showDialog<String>(
                             context: context,
@@ -191,7 +220,7 @@ class _MyFormState extends State<MyForm> {
                                 TextButton(
                                   onPressed: () {
                                     Navigator.of(context).pop('OK');
-                                    Navigator.of(context).pop('Return');
+                                    // Navigator.of(context).pop('Return');
                                   },
                                   child: const Text('OK'),
                                 ),
