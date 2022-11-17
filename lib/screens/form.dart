@@ -5,7 +5,9 @@ import 'package:form_aula/components/slider.dart';
 import 'package:form_aula/models/jobApplication.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../components/datePicker.dart';
 import '../models/myApplications.dart';
@@ -58,6 +60,15 @@ class _MyFormState extends State<MyForm> {
     if (response.statusCode != 201) {
       throw Exception("Error storing the application");
     }
+    final DataBase =
+        await openDatabase(join(await getDatabasesPath(), "jobApplications.db"),
+            onCreate: (db, version) {
+      return db.execute(
+          'CREATE TABLE Jobs (id INTEGER PRIMARY KEY, company TEXT, name TEXT, resume TEXT, birthDate TEXT, salary REAL, email TEXT, linkedIN TEXT)');
+    }, version: 1);
+
+    DataBase.insert("Jobs", applicationModel.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   @override

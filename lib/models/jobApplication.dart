@@ -36,4 +36,16 @@ class JobApplicationModel {
       "Linkedin: $_linkedin",
     ];
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      "company": _company,
+      "name": _name,
+      "resume": _resume,
+      "birthDate": DateFormat("dd/MM/yyyy").format(_birthdate),
+      "salary": _salary,
+      "email": _email,
+      "linkedIn": _linkedin
+    };
+  }
 }
