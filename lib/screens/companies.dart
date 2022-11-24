@@ -13,28 +13,28 @@ class CompaniesList extends StatefulWidget {
   State<CompaniesList> createState() => _CompaniesListState();
 }
 
+Future<List<CompanyModel>> setCompanies(http.Client httpClient) async {
+  final response = await httpClient.get(
+      Uri.parse("https://63541afbe64783fa827f6418.mockapi.io/pjam/companies/"));
+  if (response.statusCode == 200) {
+    List<dynamic> json = jsonDecode(response.body);
+    List<CompanyModel> companiesAux = [];
+    for (var j in json) {
+      companiesAux.add(CompanyModel.fromJson(j));
+    }
+    return companiesAux;
+  } else {
+    throw Exception(" Failed load companies");
+  }
+}
+
 class _CompaniesListState extends State<CompaniesList> {
   late Future<List<CompanyModel>> companies;
 
   @override
   void initState() {
     super.initState();
-    companies = setCompanies();
-  }
-
-  Future<List<CompanyModel>> setCompanies() async {
-    final response = await http.get(Uri.parse(
-        "https://63541afbe64783fa827f6418.mockapi.io/pjam/companies/"));
-    if (response.statusCode == 200) {
-      List<dynamic> json = jsonDecode(response.body);
-      List<CompanyModel> companiesAux = [];
-      for (var j in json) {
-        companiesAux.add(CompanyModel.fromJson(j));
-      }
-      return companiesAux;
-    } else {
-      throw Exception(" Failed load companies");
-    }
+    companies = setCompanies(http.Client());
   }
 
   @override
