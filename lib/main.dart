@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:form_aula/models/jobApplication.dart';
+import 'package:form_aula/models/job_application.dart';
 import 'package:form_aula/screens/companies.dart';
 import 'package:form_aula/screens/login.dart';
-import 'package:form_aula/screens/myJobApplications.dart';
+import 'package:form_aula/screens/my_job_applications.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'models/myApplications.dart';
+import 'models/my_applications.dart';
 
 void main() {
   debugPaintSizeEnabled = false;
   runApp(ChangeNotifierProvider(
       create: (context) => MyJobApplicationsModel(),
-      child: MaterialApp(
+      child: const MaterialApp(
         home: Login(),
       )));
 }
@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
   int _index = 0;
 
   final List<List<dynamic>> _tabs = [
-    ["Companies", CompaniesList()],
+    ["Companies", const CompaniesList()],
     ["My Job Applications", const MyJobApplications()],
   ];
 
@@ -47,14 +47,14 @@ class _MyAppState extends State<MyApp> {
   void queryFromDatabase() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    final DataBase = await openDatabase(
+    final dataBase = await openDatabase(
         path.join(await getDatabasesPath(), "jobApplications.db"),
         onCreate: (db, version) {
       return db.execute(
           'CREATE TABLE Jobs (id INTEGER PRIMARY KEY, company TEXT, name TEXT, resume TEXT, birthDate TEXT, salary REAL, email TEXT, linkedIN TEXT)');
     }, version: 1);
 
-    final List<Map<String, dynamic>> query = await DataBase.query("Jobs");
+    final List<Map<String, dynamic>> query = await dataBase.query("Jobs");
 
     for (var element in query) {
       if (mounted) {

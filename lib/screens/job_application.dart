@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/jobApplication.dart';
+import '../models/job_application.dart';
 
 class JobApplication extends StatelessWidget {
   final JobApplicationModel candidatura;

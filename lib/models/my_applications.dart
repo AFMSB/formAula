@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:form_aula/models/jobApplication.dart';
+import 'package:form_aula/models/job_application.dart';
 
 class MyJobApplicationsModel extends ChangeNotifier {
   final Map<String, JobApplicationModel> _myApplications = Map.identity();

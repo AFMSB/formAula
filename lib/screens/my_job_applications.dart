@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:form_aula/models/myApplications.dart';
+import 'package:form_aula/models/my_applications.dart';
 import 'package:provider/provider.dart';
 
-import 'jobApplication.dart';
+import 'job_application.dart';
 
 class MyJobApplications extends StatelessWidget {
   const MyJobApplications({Key? key}) : super(key: key);

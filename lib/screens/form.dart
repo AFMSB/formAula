@@ -2,15 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:form_aula/components/slider.dart';
-import 'package:form_aula/models/jobApplication.dart';
+import 'package:form_aula/models/job_application.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../components/datePicker.dart';
-import '../models/myApplications.dart';
+import '../components/date_picker.dart';
+import '../models/my_applications.dart';
 
 class MyForm extends StatefulWidget {
   final String title;
@@ -60,14 +60,14 @@ class _MyFormState extends State<MyForm> {
     if (response.statusCode != 201) {
       throw Exception("Error storing the application");
     }
-    final DataBase =
+    final dataBase =
         await openDatabase(join(await getDatabasesPath(), "jobApplications.db"),
             onCreate: (db, version) {
       return db.execute(
           'CREATE TABLE Jobs (id INTEGER PRIMARY KEY, company TEXT, name TEXT, resume TEXT, birthDate TEXT, salary REAL, email TEXT, linkedIN TEXT)');
     }, version: 1);
 
-    DataBase.insert("Jobs", applicationModel.toMap(),
+    dataBase.insert("Jobs", applicationModel.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 

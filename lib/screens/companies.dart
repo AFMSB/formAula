@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'form.dart';
 
 class CompaniesList extends StatefulWidget {
-  CompaniesList({Key? key}) : super(key: key);
+  const CompaniesList({Key? key}) : super(key: key);
 
   @override
   State<CompaniesList> createState() => _CompaniesListState();
@@ -59,12 +59,12 @@ class _CompaniesListState extends State<CompaniesList> {
                               border: Border(bottom: BorderSide())),
                           child: ListTile(
                             shape: border,
-                            title: Text(company.Name),
+                            title: Text(company.name),
                             onTap: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        MyForm(title: company.Name)),
+                                        MyForm(title: company.name)),
                               );
                             },
                           ),
@@ -72,9 +72,9 @@ class _CompaniesListState extends State<CompaniesList> {
                     ],
                   );
                 } else if (snapshot.hasError) {
-                  return Text("Error!!");
+                  return const Text("Error!!");
                 }
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               },
             )),
       ],

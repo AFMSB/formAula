@@ -1,8 +1,8 @@
 class CompanyModel {
-  final int Id;
-  final String Name;
+  final int id;
+  final String name;
 
-  CompanyModel(this.Id, this.Name);
+  CompanyModel(this.id, this.name);
 
   factory CompanyModel.fromJson(Map<String, dynamic> json) {
     return CompanyModel(int.parse(json["id"]), json["name"]);

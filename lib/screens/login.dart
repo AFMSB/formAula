@@ -3,11 +3,13 @@ import 'package:form_aula/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
+  const Login({super.key});
+
   @override
-  _LoginState createState() => _LoginState();
+  LoginState createState() => LoginState();
 }
 
-class _LoginState extends State<Login> {
+class LoginState extends State<Login> {
   String userName = "";
   String password = "";
 
@@ -25,7 +27,7 @@ class _LoginState extends State<Login> {
     if (name?.compareTo("admin") == 0) {
       if (mounted) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => MyApp()));
+            context, MaterialPageRoute(builder: (_) => const MyApp()));
       }
     }
   }
@@ -42,15 +44,15 @@ class _LoginState extends State<Login> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Login Page"),
+        title: const Text("Login Page"),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 60.0),
+            const Padding(
+              padding: EdgeInsets.only(top: 60.0),
               child: Center(
-                child: Container(
+                child: SizedBox(
                     width: 200,
                     height: 150,
                     /*decoration: BoxDecoration(
@@ -61,9 +63,9 @@ class _LoginState extends State<Login> {
             ),
             Padding(
               //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Email',
                     hintText: 'Enter valid email id as abc@gmail.com'),
@@ -80,7 +82,7 @@ class _LoginState extends State<Login> {
               //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 obscureText: true,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Password',
                     hintText: 'Enter secure password'),
@@ -101,17 +103,17 @@ class _LoginState extends State<Login> {
                   if (userName.compareTo("admin") == 0 &&
                       password.compareTo("12345") == 0) {
                     saveUserName();
-                    Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (_) => MyApp()));
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (_) => const MyApp()));
                   }
                 },
-                child: Text(
+                child: const Text(
                   'Login',
                   style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 130,
             ),
           ],
