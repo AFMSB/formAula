@@ -4,6 +4,7 @@ import 'package:form_aula/models/job_application.dart';
 import 'package:form_aula/screens/companies.dart';
 import 'package:form_aula/screens/login.dart';
 import 'package:form_aula/screens/my_job_applications.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
@@ -31,7 +32,7 @@ class _MyAppState extends State<MyApp> {
   int _index = 0;
 
   final List<List<dynamic>> _tabs = [
-    ["Companies", const CompaniesList()],
+    ["Companies", CompaniesList(httpClient: http.Client())],
     ["My Job Applications", const MyJobApplications()],
   ];
 

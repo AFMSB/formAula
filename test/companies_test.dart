@@ -36,12 +36,19 @@ void main() {
     });
   });
   testWidgets('Validate the number of companies', (widgetTester) async {
-    await widgetTester.pumpWidget(const MaterialApp(home: CompaniesList()));
-    /*final Finder companiesFinder = find.byType(ListView);
-    expect(companiesFinder, findsWidgets);
-    final Finder companiesFinder = find.text("Companies");
-    expect(companiesFinder, findsWidgets);*/
+    await widgetTester.runAsync(() async {
+      final client = MockClient();
+      when(client.get(Uri.parse(
+              "https://63541afbe64783fa827f6418.mockapi.io/pjam/companies/")))
+          .thenAnswer((_) async => http.Response(
+              '[{"id": "1", "name": "Teste 1"},{"id": "2", "name": "Teste 2"},{"id": "3", "name": "Teste 3"}]',
+              200));
+      await widgetTester.pumpWidget(
+          MaterialApp(home: Scaffold(body: CompaniesList(httpClient: client))));
+      await widgetTester.pump();
 
-    //TODO: Check why this is not working
+      final Finder companiesFinder = find.byType(ListTile);
+      expect(companiesFinder, findsNWidgets(3));
+    });
   });
 }

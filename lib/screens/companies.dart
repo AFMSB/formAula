@@ -7,7 +7,8 @@ import 'package:http/http.dart' as http;
 import 'form.dart';
 
 class CompaniesList extends StatefulWidget {
-  const CompaniesList({Key? key}) : super(key: key);
+  final http.Client httpClient;
+  const CompaniesList({Key? key, required this.httpClient}) : super(key: key);
 
   @override
   State<CompaniesList> createState() => _CompaniesListState();
@@ -34,7 +35,7 @@ class _CompaniesListState extends State<CompaniesList> {
   @override
   void initState() {
     super.initState();
-    companies = setCompanies(http.Client());
+    companies = setCompanies(widget.httpClient);
   }
 
   @override
