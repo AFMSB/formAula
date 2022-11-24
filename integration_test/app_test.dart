@@ -30,6 +30,8 @@ void main() {
       //verificar se mudou de screen
       final Finder companiesFinder = find.text("Companies");
       expect(companiesFinder, findsWidgets);
+      final Finder companiesItemFinder = find.byType(ListTile);
+      expect(companiesItemFinder, findsNWidgets(10));
     });
   });
 }

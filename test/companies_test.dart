@@ -9,5 +9,7 @@ void main() {
     expect(companiesFinder, findsWidgets);
     final Finder companiesFinder = find.text("Companies");
     expect(companiesFinder, findsWidgets);*/
+
+    //TODO: Check why this is not working
   });
 }
